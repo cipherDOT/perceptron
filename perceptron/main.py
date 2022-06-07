@@ -24,7 +24,7 @@ if __name__ == '__main__':
         print(f"accuracy :: {accuracy}%")
 
         if accuracy >= 95:
-            with open('note.txt', 'a') as f:
+            with open('data.txt', 'a') as f:
                 data = f"{neuron.weights} : {accuracy}\n"
                 f.write(data)
                 f.close()
