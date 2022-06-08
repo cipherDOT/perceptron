@@ -26,20 +26,20 @@ class Perceptron(object):
         prediction = self.sig(weighted_sum)
         return prediction
 
+    # training the perceptron with known data
     def train(self, train_data, target):
-        # if not train_data:
-        #     train_data = self.inputs
         prediction = self.predict(train_data)
         error = prediction - target
 
-        # adjusting the weights
+        # nudging the weights by calculating delta weight
         for i in range(len(self.weights)):
-            self.weights[i] += error * train_data[i] * self.learning_rate
+            delta_weight = error * train_data[i] * self.learning_rate
+            self.weights[i] += delta_weight
 
+    # to calculate the accuracy of the perceptron
     def accuracy(self, predictions, labels):
         res = []
-        for i, j in zip(predictions, labels):
-            res.append(i == j)
+        for prediction, label in zip(predictions, labels):
+            res.append(prediction == label)
 
         return (sum(res) / len(res)) * 100
-
