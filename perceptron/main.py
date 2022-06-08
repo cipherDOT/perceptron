@@ -2,29 +2,36 @@ from perceptron import Perceptron
 from point import Point
 
 if __name__ == '__main__':
+    # learning rate of the perceptron
     learning_rate = 0.1
+
+    # data is generated using the Point() class which generates
+    # random points and also has a label depending in the points
     points = [Point() for _ in range(100)]
-    ratio = int(len(points) * 0.75)
-    train_data, test_data = points[:ratio], points[ratio:]
-    # neuron = Perceptron(train_data, learning_rate)
 
-    for _ in range(100):
-        neuron = Perceptron(train_data, learning_rate)
-        for _ in range(5):
-            for point in train_data:
-                neuron.train(point.inputs, point.label)
+    # 75% train data, 25% test data
+    train_ratio = 0.75
+    train_quantity = int(len(points) * train_ratio)
 
-        test_predictions = []
-        for point in test_data:
-            prediction = neuron.predict(point.inputs)
-            test_predictions.append(prediction)
-            
+    # seperating the train and the test data
+    train_data, test_data = points[:train_quantity], points[train_quantity:]
 
-        accuracy = neuron.accuracy(test_predictions, [p.label for p in test_data])
-        print(f"accuracy :: {accuracy}%")
+    # the perceptron object
+    neuron = Perceptron(train_data, learning_rate)
 
-        if accuracy >= 95:
-            with open('data.txt', 'a') as f:
-                data = f"{neuron.weights} : {accuracy}\n"
-                f.write(data)
-                f.close()
+    # training the perceptron with the training data
+    for point in train_data:
+        neuron.train(point.inputs, point.label)
+
+    # testing the perceptron with the test data
+    test_predictions = []
+    test_labels = [p.label for p in test_data]
+    for point in test_data:
+        prediction = neuron.predict(point.inputs)
+        test_predictions.append(prediction)
+        
+
+    # display the accuracy of the perceptron
+    accuracy = neuron.accuracy(test_predictions, test_labels)
+    print(f"accuracy :: {accuracy}%")
+
