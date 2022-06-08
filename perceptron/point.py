@@ -2,8 +2,13 @@ import random
 
 class Point(object):
     def __init__(self):
-        self.x = int(random.uniform(0, 1) * 10)
-        self.y = int(random.uniform(0, 1) * 10)
+
+        # make two random points
+        self.x = int(random.uniform(0, 500))
+        self.y = int(random.uniform(0, 500))
+
+        # check if x > y and set the label acc. to that.
         self.label = 1 if self.x > self.y else -1
-        self.data = (self.x, self.y, self.label)
+
+        # utilities to use the data
         self.inputs = (self.x, self.y)
