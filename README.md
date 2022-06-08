@@ -1,2 +1,5 @@
 # perceptron
-A perceptron built in python 3.10
+A perceptron model built using python 3.10
+
+Resources:
+https://en.wikipedia.org/wiki/Perceptron
