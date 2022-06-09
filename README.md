@@ -1,9 +1,9 @@
 # perceptron
 A perceptron model built using python 3.10
 
-###Resources:
+### Resources:
 [wikipedia_article](https://en.wikipedia.org/wiki/Perceptron)
 [YT video on perceptron](https://www.youtube.com/watch?v=ntKn5TPHHAk&t=2176s)
 
-###Links:
+### Links:
 [stackoverflow_question](https://stackoverflow.com/questions/72542273/perceptron-outputs-the-same-value-for-all-inputs)
