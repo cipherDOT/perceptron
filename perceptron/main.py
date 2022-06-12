@@ -64,7 +64,7 @@ def main():
             label_color = (50, 200, 50) if data.label == 1 else (200, 50, 50)
             prediction_color = (50, 200, 50) if prediction == 1 else (200, 50, 50)
             pygame.draw.circle(display, label_color, data.inputs, radius = 1)
-            pygame.draw.circle(display, prediction_color, data.inputs, radius = 6, width = 1)
+            pygame.draw.circle(display, prediction_color, data.inputs, radius = 4, width = 1)
 
         pygame.display.flip()
 
