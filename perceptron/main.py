@@ -30,7 +30,7 @@ def main():
 
     # data is generated using the Point() class which generates
     # random points and also has a label depending in the points
-    points = [Point(width, height) for _ in range(500)]
+    points = [Point(width, height) for _ in range(1000)]
 
     # 75% train data, 25% test data
     train_ratio = 0.75
@@ -63,8 +63,8 @@ def main():
         for data, prediction in zip(test_data, test_predictions):
             label_color = (50, 200, 50) if data.label == 1 else (200, 50, 50)
             prediction_color = (50, 200, 50) if prediction == 1 else (200, 50, 50)
-            pygame.draw.circle(display, label_color, data.inputs, radius = 1)
-            pygame.draw.circle(display, prediction_color, data.inputs, radius = 4, width = 1)
+            pygame.draw.circle(display, label_color, data.points, radius = 1)
+            pygame.draw.circle(display, prediction_color, data.points, radius = 4, width = 1)
 
         pygame.display.flip()
 
