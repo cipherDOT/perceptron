@@ -1,7 +1,7 @@
 import random
 
 class Point(object):
-    def __init__(self, upper_limit_x, upper_limit_y) -> None:
+    def __init__(self, upper_limit_x: int, upper_limit_y: int) -> None:
 
         # make two random points
         self.x = random.randint(0, upper_limit_x)
