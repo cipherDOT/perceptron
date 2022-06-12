@@ -1,11 +1,11 @@
 import random
 
 class Point(object):
-    def __init__(self):
+    def __init__(self, upper_limit_x, upper_limit_y) -> None:
 
         # make two random points
-        self.x = int(random.uniform(0, 500))
-        self.y = int(random.uniform(0, 500))
+        self.x = random.randint(0, upper_limit_x)
+        self.y = random.randint(0, upper_limit_y)
 
         # check if x > y and set the label acc. to that.
         self.label = 1 if self.x > self.y else -1
