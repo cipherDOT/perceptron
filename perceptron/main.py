@@ -1,20 +1,36 @@
+
+# ------------------------------- required libraries --------------------------------- #
+
 from perceptron import Perceptron
 from point import Point
-from random import shuffle
+import pygame
 
+# -------------------------------- global variables ---------------------------------- #
 
-def data_split(data, ratio):
+width = 500
+height = 500
+display = pygame.display.set_mode((width + 1, height + 1))
+pygame.display.set_caption("Perceptron")
+
+# ------------------------------ data seperation util -------------------------------- #
+
+def data_split(data: list[list[int]], ratio: int) -> list[list[int]]:
+
+    # using the ratio, determines the amount of train and test data
     train_quantity = int(len(data) * ratio)
-    train_data, test_data = data[:train_quantity], points[train_quantity:]
+    train_data, test_data = data[:train_quantity], data[train_quantity:]
     return train_data, test_data
 
-if __name__ == '__main__':
+# --------------------------------- main function ------------------------------------ #
+
+def main():
+    run = True
     # learning rate of the perceptron
-    learning_rate = 0.1
+    learning_rate = 0.01
 
     # data is generated using the Point() class which generates
     # random points and also has a label depending in the points
-    points = [Point() for _ in range(100)]
+    points = [Point(width, height) for _ in range(500)]
 
     # 75% train data, 25% test data
     train_ratio = 0.75
@@ -25,22 +41,40 @@ if __name__ == '__main__':
     neuron = Perceptron(train_data, learning_rate)
 
     # training the perceptron with the training data
-    for _ in range(1000):
-        shuffle(train_data)
-        for point in train_data:
-            neuron.train(point.inputs, point.label)
-
-    # testing the perceptron with the test data
-    test_predictions = []
-    test_labels = [p.label for p in test_data]
-    for point in test_data:
-        prediction = neuron.predict(point.inputs)
-        test_predictions.append(prediction)
+    for point in train_data:
+        neuron.train(point.inputs, point.label)
         
+    while run:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                run = False
 
-    print(test_labels)
-    print(test_predictions)
+        # testing the perceptron with the test data
+        test_predictions = []
+        test_labels = [p.label for p in test_data]
+        for point in test_data:
+            prediction = neuron.predict(point.inputs)
+            test_predictions.append(prediction)
+
+        # visualizing the data values and the predicted results
+        # if the colors of the dots and their outer circle are different then
+        # the predicted value is not equal to the true value, i.e., the prediction 
+        # is incorrect. Else, the prediction is correct
+        for data, prediction in zip(test_data, test_predictions):
+            label_color = (50, 200, 50) if data.label == 1 else (200, 50, 50)
+            prediction_color = (50, 200, 50) if prediction == 1 else (200, 50, 50)
+            pygame.draw.circle(display, label_color, data.inputs, radius = 1)
+            pygame.draw.circle(display, prediction_color, data.inputs, radius = 6, width = 1)
+
+        pygame.display.flip()
+
     # display the accuracy of the perceptron
     accuracy = neuron.accuracy(test_predictions, test_labels)
     print(f"accuracy :: {accuracy}%")
+        
+# ------------------------------ invoking main func -------------------------------- #
 
+if __name__ == "__main__":
+    main()
+
+# ---------------------------------------------------------------------------------- #
