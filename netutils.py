@@ -1,4 +1,6 @@
 
+# utility functions for the neural network
+
 # ------------------------------ data seperation util -------------------------------- #
 
 def data_split(data: list[list[int]], ratio: int) -> tuple[list[list[int]]]:
