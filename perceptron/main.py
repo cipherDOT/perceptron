@@ -3,6 +3,7 @@
 
 from perceptron import Perceptron
 from point import Point
+from netutils import data_split
 import pygame
 
 # -------------------------------- global variables ---------------------------------- #
@@ -11,15 +12,6 @@ width = 500
 height = 500
 display = pygame.display.set_mode((width + 1, height + 1))
 pygame.display.set_caption("Perceptron")
-
-# ------------------------------ data seperation util -------------------------------- #
-
-def data_split(data: list[list[int]], ratio: int) -> list[list[int]]:
-
-    # using the ratio, determines the amount of train and test data
-    train_quantity = int(len(data) * ratio)
-    train_data, test_data = data[:train_quantity], data[train_quantity:]
-    return train_data, test_data
 
 # --------------------------------- main function ------------------------------------ #
 
@@ -44,6 +36,7 @@ def main():
     for point in train_data:
         neuron.train(point.inputs, point.label)
         
+    # "game" loop
     while run:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -51,7 +44,7 @@ def main():
 
         # testing the perceptron with the test data
         test_predictions = []
-        test_labels = [p.label for p in test_data]
+        test_labels = [point.label for point in test_data]
         for point in test_data:
             prediction = neuron.predict(point.inputs)
             test_predictions.append(prediction)
@@ -61,9 +54,16 @@ def main():
         # the predicted value is not equal to the true value, i.e., the prediction 
         # is incorrect. Else, the prediction is correct
         for data, prediction in zip(test_data, test_predictions):
+            # color of the inner dot -> green if x > y else red
             label_color = (50, 200, 50) if data.label == 1 else (200, 50, 50)
+
+            # color of the prediction -> green if prediction is accurate else red
             prediction_color = (50, 200, 50) if prediction == 1 else (200, 50, 50)
+
+            # label dot
             pygame.draw.circle(display, label_color, data.points, radius = 1)
+
+            # prediction circle
             pygame.draw.circle(display, prediction_color, data.points, radius = 4, width = 1)
 
         pygame.display.flip()
