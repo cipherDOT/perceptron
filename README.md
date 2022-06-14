@@ -111,6 +111,7 @@ print(f"accuracy :: {accuracy}%")
 
 ## References:
 Wikipedia article : https://en.wikipedia.org/wiki/Perceptron
+
 Javapoint article : https://www.javatpoint.com/perceptron-in-machine-learning
 
  
